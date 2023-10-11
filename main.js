@@ -10,7 +10,7 @@ onmousemove = (event) => {
 	mouseY = event.clientY / window.innerHeight;
 };
 
-let camera, scene, renderer, controls, sitesTexture, sphere, spaceTexture;
+let camera, scene, renderer, controls, sitesTexture, sphere, spaceTexture, particleLight;
 
 init();
 animate();
@@ -21,21 +21,19 @@ function init() {
 	// scene
 	scene = new THREE.Scene();
 
-	const ambientLight = new THREE.AmbientLight( 0xffffff, 1 );
+	const ambientLight = new THREE.AmbientLight( 0xffffff, .05 );
 	scene.add( ambientLight );
-
-	const pointLight = new THREE.PointLight( 0xffffff, 35 );
-	pointLight.position.set( 10, 0, -2 );
-	// scene.add( pointLight );
-	
-	const light2 = new THREE.PointLight( 0xffffff, 20 );
-	light2.position.set( -1, 0, 2 );
-	// scene.add( light2 );
 	
 	const camlight = new THREE.PointLight( 0xffffff, 10 );
 	camera.add( camlight );
+
+	particleLight = new THREE.Mesh(
+		new THREE.SphereGeometry( 0, 8, 8 ),
+		new THREE.MeshBasicMaterial( { color: 0xffffff } )
+	);
+	scene.add( particleLight );
+	particleLight.add( new THREE.PointLight( 0xffffff, 0 ) );
 	
-	scene.background = new THREE.Color( "#946BEF" );
 	scene.add( camera );
 	
 
@@ -62,7 +60,8 @@ function init() {
 	spaceTexture.repeat.set(2, 2);
 
 	scene.background = spaceTexture;
-	scene.backgroundIntensity = 0.3;
+	scene.backgroundIntensity = 0.05;
+	// scene.backgroundBlurriness = 1;
 
 
 	renderer = new THREE.WebGLRenderer( { antialias: true } );
@@ -108,6 +107,11 @@ function animate() {
 	sphere.rotation.x = sphere.rotation.x + (targetRotationX - sphere.rotation.x) * 0.1;
 	const targetRotationY = (mouseX) * 0.7 - 0.3
 	sphere.rotation.y = sphere.rotation.y + (targetRotationY - sphere.rotation.y) * 0.1;
+
+	const timer = Date.now() * 0.00025;
+	particleLight.position.x = Math.sin( timer * 9 ) * 3;
+	particleLight.position.y = Math.cos( timer * 7 ) * 4;
+	particleLight.position.z = Math.cos( timer * 5 ) * 3;
 	
 	// zoom scene
 	// let scrollHeight = Math.max(
