@@ -4,18 +4,24 @@
       NEW ASSEMBLY
     </title>
   </head>
-  <body>
-    <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+  <body onclick="document.body.classList.toggle('show-overlay')">
+    <script src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
     <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.156.1/build/three.module.js"
+        }
+      }
+    </script>
+    <!-- <script type="importmap">
       {
         "imports": {
           "three": "https://unpkg.com/three@0.156.1/build/three.module.js",
           "three/addons/": "https://unpkg.com/three@0.156.1/examples/jsm/"
         }
       }
-    </script>
+    </script> -->
     <script type="module" src="./main.js"></script>
-    <!-- <script type="module" src="./new.js"></script> -->
     <style>
       canvas {
         width: 100vw;
@@ -24,6 +30,54 @@
         top: 0;
         left: 0;
       }
+      .overlay {
+        position: fixed;
+        left: -50px;
+        right: -50px;
+        top: -50px;
+        bottom: -50px;
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
+        /* background-color: rgba(255, 255, 255, 0.5); */
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity .5s linear;
+        /* mix-blend-mode: difference; */
+        pointer-events: none;
+      }
+      .show-overlay .overlay {
+        pointer-events: all;
+        opacity: 1;
+        /* backdrop-filter: blur(20px); */
+      }
+      .overlay a {
+        color: white;
+        font-size: 80px;
+        font-family: Helvetica, sans-serif;
+        text-decoration: none;
+        display: block;
+      }
+      .overlay a:hover {
+        text-decoration: underline;
+        text-decoration-thickness: 6px;
+        text-underline-offset: 10px;
+      }
+      @media screen and (max-width: 800px) {
+        .overlay a {
+        color: white;
+        font-size: 35px;
+        font-family: Helvetica, sans-serif;
+        text-decoration: none;
+        display: block;
+      }
+      }
     </style>
+    <div class="overlay">
+      <a href="mailto:office@newassembly.com">office@newassembly.com</a>
+    </div>
   </body>
 </html>
