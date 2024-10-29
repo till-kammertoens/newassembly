@@ -1,8 +1,6 @@
 <html>
   <head>
-    <title>
-      NEW ASSEMBLY
-    </title>
+    <title>NEW ASSEMBLY</title>
   </head>
   <body onclick="document.body.classList.toggle('show-overlay')">
     <script src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
@@ -23,6 +21,9 @@
     </script> -->
     <script type="module" src="./main.js"></script>
     <style>
+      html {
+        background: black;
+      }
       canvas {
         width: 100vw;
         height: 100vh;
@@ -45,7 +46,7 @@
         align-items: center;
         justify-content: center;
         opacity: 0;
-        transition: opacity .5s linear;
+        transition: opacity 0.5s linear;
         /* mix-blend-mode: difference; */
         pointer-events: none;
       }
@@ -68,16 +69,17 @@
       }
       @media screen and (max-width: 800px) {
         .overlay a {
-        color: white;
-        font-size: 35px;
-        font-family: Helvetica, sans-serif;
-        text-decoration: none;
-        display: block;
-      }
+          color: white;
+          font-size: 35px;
+          font-family: Helvetica, sans-serif;
+          text-decoration: none;
+          display: block;
+        }
       }
     </style>
     <div class="overlay">
       <a href="mailto:office@newassembly.com">office@newassembly.com</a>
     </div>
+    <img src="./sites.png" loading="eager" style="opacity: 0" alt="" />
   </body>
 </html>
